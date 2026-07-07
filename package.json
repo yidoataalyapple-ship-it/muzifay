@@ -36,9 +36,9 @@
     "@react-native-async-storage/async-storage": "1.21.0",
     "firebase": "^10.7.0",
     "react-native-track-player": "^4.0.0",
-    "react-native-slider": "^0.11.2",
-    "@rneui/themed": "^4.0.0",
-    "@rneui/base": "^4.0.0",
+    "@react-native-community/slider": "^4.5.0",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "@rneui/base": "^4.0.0-rc.8",
     "lottie-react-native": "6.5.0"
   },
   "devDependencies": {
