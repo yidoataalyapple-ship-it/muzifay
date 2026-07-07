@@ -52,12 +52,12 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "muzifay-project-id"
+        "projectId": "144aba66-f2ab-4e35-9fcf-a02d7b961925"
       }
     },
     "owner": "ismaildomaltan",
     "updates": {
-      "url": "https://u.expo.dev/muzifay-project-id"
+      "url": "https://u.expo.dev/144aba66-f2ab-4e35-9fcf-a02d7b961925"
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
