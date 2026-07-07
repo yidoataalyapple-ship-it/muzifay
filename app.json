@@ -51,8 +51,16 @@
       ]
     ],
     "extra": {
-      "eas": {}
+      "eas": {
+        "projectId": "muzifay-project-id"
+      }
     },
-    "owner": "yidoatalay"
+    "owner": "ismaildomaltan",
+    "updates": {
+      "url": "https://u.expo.dev/muzifay-project-id"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }
