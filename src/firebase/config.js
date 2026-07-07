@@ -1,17 +1,17 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
+  apiKey: process.env.FIREBASE_API_KEY || "AIzaSyDummy-Key-For-Build-Only",
   authDomain: "muzifay-app.firebaseapp.com",
   projectId: "muzifay-app",
   storageBucket: "muzifay-app.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "000000000000",
+  appId: process.env.FIREBASE_APP_ID || "1:000000000000:android:0000000000000000",
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID || "G-XXXXXXXXXX"
 };
 
 const app = initializeApp(firebaseConfig);
