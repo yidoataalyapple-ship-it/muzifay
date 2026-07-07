@@ -51,16 +51,8 @@
       ]
     ],
     "extra": {
-      "eas": {
-        "projectId": "muzifay-project-id"
-      }
+      "eas": {}
     },
-    "owner": "muzifay-team",
-    "updates": {
-      "url": "https://u.expo.dev/muzifay-project-id"
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    }
+    "owner": "yidoatalay"
   }
 }
