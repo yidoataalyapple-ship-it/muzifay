@@ -21,7 +21,8 @@
         "simulator": true
       },
       "env": {
-        "APP_VARIANT": "preview"
+        "APP_VARIANT": "preview",
+        "EAS_BUILD_SKIP_LOCKFILE_CHECK": "1"
       }
     },
     "production": {
