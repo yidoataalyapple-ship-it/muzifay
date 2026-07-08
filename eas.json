@@ -9,13 +9,17 @@
       "distribution": "internal",
       "env": {
         "APP_VARIANT": "development"
+      },
+      "android": {
+        "credentialsSource": "local"
       }
     },
     "preview": {
       "distribution": "internal",
       "android": {
         "buildType": "apk",
-        "prebuildCommand": "--no-install --platform android"
+        "prebuildCommand": "--no-install --platform android",
+        "credentialsSource": "local"
       },
       "ios": {
         "simulator": true
@@ -32,7 +36,8 @@
         "APP_VARIANT": "production"
       },
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "credentialsSource": "local"
       }
     }
   },
