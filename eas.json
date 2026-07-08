@@ -1,1 +1,47 @@
-ewogICJjbGkiOiB7CiAgICAidmVyc2lvbiI6ICI+PSA3LjAuMCIsCiAgICAiYXBwVmVyc2lvblNvdXJjZSI6ICJyZW1vdGUiCiAgfSwKICAiYnVpbGQiOiB7CiAgICAiZGV2ZWxvcG1lbnQiOiB7CiAgICAgICJkZXZlbG9wbWVudENsaWVudCI6IHRydWUsCiAgICAgICJkaXN0cmlidXRpb24iOiAiaW50ZXJuYWwiLAogICAgICAiZW52IjogewogICAgICAgICJBUFBfVkFSSUFOVCI6ICJkZXZlbG9wbWVudCIKICAgICAgfQogICAgfSwKICAgICJwcmV2aWV3IjogewogICAgICAiZGlzdHJpYnV0aW9uIjogImludGVybmFsIiwKICAgICAgImFuZHJvaWQiOiB7CiAgICAgICAgImJ1aWxkVHlwZSI6ICJhcGsiLAogICAgICAgICJwcmVidWlsZENvbW1hbmQiOiAiLS1uby1pbnN0YWxsIC0tcGxhdGZvcm0gYW5kcm9pZCIKICAgICAgfSwKICAgICAgICAiaW9zIjogewogICAgICAgICJzaW11bGF0b3IiOiB0cnVlCiAgICAgIH0sCiAgICAgICJlbnYiOiB7CiAgICAgICAgIkFQUF9WQVJJQU5UIjogInByZXZpZXciLAogICAgICAgICJFQVNfQlVJTERfU0tJUF9MT0NLRklMRV9DSEVDSyI6ICIxIiwKICAgICAgICAiSkFWQV9IT01FIjogIi91c3IvbGliL2p2bS9qYXZhLTE3LW9wZW5qZGstYW1kNjQiCiAgICAgIH0KICAgIH0sCiAgICAicHJvZHVjdGlvbiI6IHsKICAgICAgImF1dG9JbmNyZW1lbnQiOiB0cnVlLAogICAgICAiZW52IjogewogICAgICAgICJBUFBfVkFSSUFOVCI6ICJwcm9kdWN0aW9uIgogICAgICB9LAogICAgICAiYW5kcm9pZCI6IHsKICAgICAgICAiYnVpbGRUeXBlIjogImFwcC1idW5kbGUiCiAgICAgIH0KICAgIH0KICB9LAogICJzdWJtaXQiOiB7CiAgICAicHJvZHVjdGlvbiI6IHsKICAgICAgImFuZHJvaWQiOiB7CiAgICAgICAgInNlcnZpY2VBY2NvdW50S2V5UGF0aCI6ICIuL2dvb2dsZS1zZXJ2aWNlLWFjY291bnQuanNvbiIsCiAgICAgICAgInRyYWNrIjogInByb2R1Y3Rpb24iCiAgICAgIH0KICAgIH0KICB9Cn0=
+{
+  "cli": {
+    "version": ">= 7.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "development"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "prebuildCommand": "--no-install --platform android"
+      },
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "APP_VARIANT": "preview",
+        "EAS_BUILD_SKIP_LOCKFILE_CHECK": "1",
+        "JAVA_HOME": "/usr/lib/jvm/java-17-openjdk-amd64"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "APP_VARIANT": "production"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production"
+      }
+    }
+  }
+}
