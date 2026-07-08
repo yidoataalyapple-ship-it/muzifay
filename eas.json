@@ -13,6 +13,7 @@
     },
     "preview": {
       "distribution": "internal",
+      "image": "ubuntu-22.04-jdk-17",
       "android": {
         "buildType": "apk"
       },
