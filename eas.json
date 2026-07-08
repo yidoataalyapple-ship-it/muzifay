@@ -21,7 +21,7 @@
       },
       "env": {
         "APP_VARIANT": "preview",
-        "JAVA_HOME": "/usr/lib/jvm/java-17-openjdk-amd64"
+        "GRADLE_OPTS": "-Dorg.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64"
       }
     },
     "production": {

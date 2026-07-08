@@ -56,8 +56,6 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": [
-      "./plugins/withJava17.js"
-    ]
+    "plugins": []
   }
 }
