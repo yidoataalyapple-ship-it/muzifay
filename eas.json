@@ -20,8 +20,7 @@
         "simulator": true
       },
       "env": {
-        "APP_VARIANT": "preview",
-        "GRADLE_OPTS": "-Dorg.gradle.java.home=/usr/lib/jvm/java-17-openjdk-amd64"
+        "APP_VARIANT": "preview"
       }
     },
     "production": {

@@ -14,6 +14,5 @@ web-build/
 !.env.example
 google-service-account.json
 ios/
-android/
 *.log
 .DS_Store
