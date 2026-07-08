@@ -13,6 +13,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import SongListItem from '../components/SongListItem';
 import GradientBackground from '../components/GradientBackground';
+import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const GENRES = [
   { name: 'Pop', color: ['#E91E63', '#F48FB1'] },
@@ -27,10 +28,28 @@ const GENRES = [
 
 const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { searchSongs } = useMusic();
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const { searchSongs, songs, playSong } = useMusic();
 
   const searchResults = searchSongs(searchQuery);
   const isSearching = searchQuery.length > 0;
+
+  const genreSongs = selectedGenre
+    ? songs.filter(s => s.genre === selectedGenre)
+    : [];
+
+  const handleGenrePress = (genreName) => {
+    if (selectedGenre === genreName) {
+      setSelectedGenre(null);
+    } else {
+      setSelectedGenre(genreName);
+    }
+  };
+
+  const handlePlayGenre = (song) => {
+    const genreQueue = songs.filter(s => s.genre === selectedGenre);
+    playSong(song, genreQueue);
+  };
 
   return (
     <GradientBackground colors={Gradients.dark}>
@@ -53,7 +72,10 @@ const SearchScreen = () => {
             placeholder="Sarki, sanatci veya album ara..."
             placeholderTextColor={Colors.textMuted}
             value={searchQuery}
-            onChangeText={setSearchQuery}
+            onChangeText={(text) => {
+              setSearchQuery(text);
+              setSelectedGenre(null);
+            }}
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -73,7 +95,7 @@ const SearchScreen = () => {
         >
           {isSearching ? (
             /* Arama Sonuclari */
-            <View style={styles.resultsContainer}>
+            <Animated.View entering={FadeIn} style={styles.resultsContainer}>
               {searchResults.length > 0 ? (
                 <>
                   <Text style={styles.resultsTitle}>
@@ -102,29 +124,64 @@ const SearchScreen = () => {
                   </Text>
                 </View>
               )}
-            </View>
+            </Animated.View>
+          ) : selectedGenre ? (
+            /* Tur Sonuclari */
+            <Animated.View entering={FadeIn}>
+              <View style={styles.genreHeader}>
+                <TouchableOpacity
+                  style={styles.backToGenres}
+                  onPress={() => setSelectedGenre(null)}
+                >
+                  <Ionicons name="arrow-back" size={20} color={Colors.primary} />
+                  <Text style={styles.backToGenresText}>Turlere Don</Text>
+                </TouchableOpacity>
+                <Text style={styles.genreTitle}>{selectedGenre} Sarkilar</Text>
+              </View>
+              {genreSongs.length > 0 ? (
+                genreSongs.map((song, index) => (
+                  <SongListItem
+                    key={song.id}
+                    song={song}
+                    index={index + 1}
+                  />
+                ))
+              ) : (
+                <View style={styles.noResults}>
+                  <Text style={styles.noResultsText}>
+                    Bu turde sarki bulunamadi
+                  </Text>
+                </View>
+              )}
+            </Animated.View>
           ) : (
             /* Turler */
             <>
               <Text style={styles.sectionTitle}>Hepsine goz at</Text>
               <View style={styles.genresGrid}>
                 {GENRES.map((genre, index) => (
-                  <TouchableOpacity
+                  <Animated.View
                     key={index}
-                    style={[
-                      styles.genreCard,
-                      { backgroundColor: genre.color[0] },
-                    ]}
-                    activeOpacity={0.8}
+                    entering={FadeInUp.delay(index * 50)}
+                    style={styles.genreCardWrapper}
                   >
-                    <Text style={styles.genreText}>{genre.name}</Text>
-                    <View
+                    <TouchableOpacity
                       style={[
-                        styles.genreAccent,
-                        { backgroundColor: genre.color[1] },
+                        styles.genreCard,
+                        { backgroundColor: genre.color[0] },
                       ]}
-                    />
-                  </TouchableOpacity>
+                      activeOpacity={0.8}
+                      onPress={() => handleGenrePress(genre.name)}
+                    >
+                      <Text style={styles.genreText}>{genre.name}</Text>
+                      <View
+                        style={[
+                          styles.genreAccent,
+                          { backgroundColor: genre.color[1] },
+                        ]}
+                      />
+                    </TouchableOpacity>
+                  </Animated.View>
                 ))}
               </View>
             </>
@@ -188,8 +245,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     gap: 12,
   },
-  genreCard: {
+  genreCardWrapper: {
     width: '47%',
+  },
+  genreCard: {
     height: 100,
     borderRadius: 8,
     padding: 16,
@@ -235,6 +294,26 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
     fontSize: 14,
     marginTop: 8,
+  },
+  genreHeader: {
+    paddingHorizontal: 20,
+    marginBottom: 16,
+  },
+  backToGenres: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  backToGenresText: {
+    color: Colors.primary,
+    fontSize: 14,
+    marginLeft: 4,
+    fontWeight: '600',
+  },
+  genreTitle: {
+    color: Colors.textPrimary,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   bottomPadding: {
     height: 120,

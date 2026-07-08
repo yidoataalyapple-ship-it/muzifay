@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import { Audio } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -163,10 +163,14 @@ export const MusicProvider = ({ children }) => {
   const [queueIndex, setQueueIndex] = useState(0);
   const [shuffleMode, setShuffleMode] = useState(false);
   const [repeatMode, setRepeatMode] = useState('none'); // none, one, all
+  const [recentSongs, setRecentSongs] = useState([]);
+  const [localSongs, setLocalSongs] = useState([]);
 
   // Begenilen sarkilari yukle
   useEffect(() => {
     loadLikedSongs();
+    loadRecentSongs();
+    loadLocalSongs();
   }, []);
 
   const loadLikedSongs = async () => {
@@ -203,6 +207,58 @@ export const MusicProvider = ({ children }) => {
     return songs.filter(song => likedSongs.includes(song.id));
   };
 
+  const loadRecentSongs = async () => {
+    try {
+      const saved = await AsyncStorage.getItem('recentSongs');
+      if (saved) {
+        setRecentSongs(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('Son calinanlar yuklenemedi:', error);
+    }
+  };
+
+  const addToRecent = async (song) => {
+    try {
+      const newRecent = [song, ...recentSongs.filter(s => s.id !== song.id)].slice(0, 20);
+      setRecentSongs(newRecent);
+      await AsyncStorage.setItem('recentSongs', JSON.stringify(newRecent));
+    } catch (error) {
+      console.error('Son calinanlara eklenemedi:', error);
+    }
+  };
+
+  // Yerel sarkilari yukle
+  const loadLocalSongs = async () => {
+    try {
+      const saved = await AsyncStorage.getItem('localSongs');
+      if (saved) {
+        setLocalSongs(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error('Yerel sarkilar yuklenemedi:', error);
+    }
+  };
+
+  const saveLocalSongs = async (songsList) => {
+    try {
+      await AsyncStorage.setItem('localSongs', JSON.stringify(songsList));
+      setLocalSongs(songsList);
+    } catch (error) {
+      console.error('Yerel sarkilar kaydedilemedi:', error);
+    }
+  };
+
+  const addLocalSong = async (song) => {
+    const newLocalSongs = [...localSongs, song];
+    await saveLocalSongs(newLocalSongs);
+  };
+
+  const removeLocalSong = async (songId) => {
+    const newLocalSongs = localSongs.filter(s => s.id !== songId);
+    await saveLocalSongs(newLocalSongs);
+  };
+
   const playSong = async (song, songQueue = null) => {
     try {
       // Mevcut sesi durdur
@@ -221,13 +277,17 @@ export const MusicProvider = ({ children }) => {
       setIsPlaying(true);
       setPosition(0);
 
+      // Son calinanlara ekle
+      await addToRecent(song);
+
       if (songQueue) {
         setQueue(songQueue);
         const index = songQueue.findIndex(s => s.id === song.id);
         setQueueIndex(index >= 0 ? index : 0);
       } else {
-        setQueue(songs);
-        const index = songs.findIndex(s => s.id === song.id);
+        const allSongs = [...songs, ...localSongs];
+        setQueue(allSongs);
+        const index = allSongs.findIndex(s => s.id === song.id);
         setQueueIndex(index >= 0 ? index : 0);
       }
     } catch (error) {
@@ -267,14 +327,17 @@ export const MusicProvider = ({ children }) => {
   };
 
   const playNext = async () => {
-    if (queue.length === 0) return;
+    const allSongs = [...songs, ...localSongs];
+    if (queue.length === 0 && allSongs.length === 0) return;
+
+    const effectiveQueue = queue.length > 0 ? queue : allSongs;
 
     let nextIndex;
     if (shuffleMode) {
-      nextIndex = Math.floor(Math.random() * queue.length);
+      nextIndex = Math.floor(Math.random() * effectiveQueue.length);
     } else {
       nextIndex = queueIndex + 1;
-      if (nextIndex >= queue.length) {
+      if (nextIndex >= effectiveQueue.length) {
         if (repeatMode === 'all') {
           nextIndex = 0;
         } else {
@@ -284,20 +347,23 @@ export const MusicProvider = ({ children }) => {
       }
     }
 
-    const nextSong = queue[nextIndex];
-    await playSong(nextSong, queue);
+    const nextSong = effectiveQueue[nextIndex];
+    await playSong(nextSong, effectiveQueue);
   };
 
   const playPrevious = async () => {
-    if (queue.length === 0) return;
+    const allSongs = [...songs, ...localSongs];
+    if (queue.length === 0 && allSongs.length === 0) return;
+
+    const effectiveQueue = queue.length > 0 ? queue : allSongs;
 
     let prevIndex = queueIndex - 1;
     if (prevIndex < 0) {
-      prevIndex = queue.length - 1;
+      prevIndex = effectiveQueue.length - 1;
     }
 
-    const prevSong = queue[prevIndex];
-    await playSong(prevSong, queue);
+    const prevSong = effectiveQueue[prevIndex];
+    await playSong(prevSong, effectiveQueue);
   };
 
   const replayCurrent = async () => {
@@ -350,11 +416,12 @@ export const MusicProvider = ({ children }) => {
   const searchSongs = (query) => {
     if (!query.trim()) return [];
     const lowerQuery = query.toLowerCase();
-    return songs.filter(song =>
+    const allSongs = [...songs, ...localSongs];
+    return allSongs.filter(song =>
       song.title.toLowerCase().includes(lowerQuery) ||
       song.artist.toLowerCase().includes(lowerQuery) ||
-      song.album.toLowerCase().includes(lowerQuery) ||
-      song.genre.toLowerCase().includes(lowerQuery)
+      (song.album && song.album.toLowerCase().includes(lowerQuery)) ||
+      (song.genre && song.genre.toLowerCase().includes(lowerQuery))
     );
   };
 
@@ -370,6 +437,8 @@ export const MusicProvider = ({ children }) => {
     shuffleMode,
     repeatMode,
     queue,
+    recentSongs,
+    localSongs,
     playSong,
     togglePlay,
     playNext,
@@ -384,6 +453,8 @@ export const MusicProvider = ({ children }) => {
     getSongsByAlbum,
     getSongsByArtist,
     searchSongs,
+    addLocalSong,
+    removeLocalSong,
   };
 
   return <MusicContext.Provider value={value}>{children}</MusicContext.Provider>;

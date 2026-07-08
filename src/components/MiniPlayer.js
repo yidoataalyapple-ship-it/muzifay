@@ -4,10 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
+import Animated, { FadeInUp, FadeOutDown } from 'react-native-reanimated';
 
 const MiniPlayer = () => {
   const navigation = useNavigation();
-  const { currentSong, isPlaying, togglePlay, playNext } = useMusic();
+  const { currentSong, isPlaying, togglePlay, playNext, position, duration } = useMusic();
 
   if (!currentSong) return null;
 
@@ -15,59 +16,66 @@ const MiniPlayer = () => {
     navigation.navigate('Player');
   };
 
+  const progress = duration > 0 ? (position / duration) * 100 : 0;
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={handlePress}
-      activeOpacity={0.95}
-    >
-      <View style={styles.progressBar}>
-        <View style={[styles.progressFill, { width: '45%' }]} />
-      </View>
-
-      <View style={styles.content}>
-        <Image source={{ uri: currentSong.cover }} style={styles.cover} />
-
-        <View style={styles.info}>
-          <Text style={styles.title} numberOfLines={1}>
-            {currentSong.title}
-          </Text>
-          <Text style={styles.artist} numberOfLines={1}>
-            {currentSong.artist}
-          </Text>
+    <Animated.View entering={FadeInUp} exiting={FadeOutDown}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={handlePress}
+        activeOpacity={0.95}
+      >
+        {/* Progress Bar */}
+        <View style={styles.progressBar}>
+          <View style={[styles.progressFill, { width: `${progress}%` }]} />
         </View>
 
-        <View style={styles.controls}>
-          <TouchableOpacity
-            onPress={(e) => {
-              e.stopPropagation();
-              togglePlay();
-            }}
-            style={styles.playButton}
-          >
-            <Ionicons
-              name={isPlaying ? 'pause' : 'play'}
-              size={24}
-              color={Colors.textPrimary}
-            />
-          </TouchableOpacity>
+        <View style={styles.content}>
+          <Image source={{ uri: currentSong.cover }} style={styles.cover} />
 
-          <TouchableOpacity
-            onPress={(e) => {
-              e.stopPropagation();
-              playNext();
-            }}
-            style={styles.nextButton}
-          >
-            <Ionicons
-              name="play-forward"
-              size={22}
-              color={Colors.textPrimary}
-            />
-          </TouchableOpacity>
+          <View style={styles.info}>
+            <Text style={styles.title} numberOfLines={1}>
+              {currentSong.title}
+            </Text>
+            <Text style={styles.artist} numberOfLines={1}>
+              {currentSong.artist}
+            </Text>
+          </View>
+
+          <View style={styles.controls}>
+            <TouchableOpacity
+              onPress={(e) => {
+                e.stopPropagation();
+                togglePlay();
+              }}
+              style={styles.playButton}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <Ionicons
+                name={isPlaying ? 'pause' : 'play'}
+                size={24}
+                color={Colors.primary}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={(e) => {
+                e.stopPropagation();
+                playNext();
+              }}
+              style={styles.nextButton}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <Ionicons
+                name="play-forward"
+                size={22}
+                color={Colors.textPrimary}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 

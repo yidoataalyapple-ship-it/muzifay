@@ -12,6 +12,9 @@ import SearchScreen from '../screens/SearchScreen';
 import LibraryScreen from '../screens/LibraryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PlayerScreen from '../screens/PlayerScreen';
+import LocalMusicScreen from '../screens/LocalMusicScreen';
+import LikedSongsScreen from '../screens/LikedSongsScreen';
+import RecentSongsScreen from '../screens/RecentSongsScreen';
 
 // Komponentler
 import MiniPlayer from '../components/MiniPlayer';
@@ -62,6 +65,16 @@ const TabNavigator = () => {
           }}
         />
         <Tab.Screen
+          name="LocalMusic"
+          component={LocalMusicScreen}
+          options={{
+            tabBarLabel: 'Cihazdan',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="folder-open" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Library"
           component={LibraryScreen}
           options={{
@@ -102,6 +115,20 @@ const AppNavigator = () => {
           component={PlayerScreen}
           options={{
             presentation: 'modal',
+            animationEnabled: true,
+          }}
+        />
+        <Stack.Screen
+          name="LikedSongs"
+          component={LikedSongsScreen}
+          options={{
+            animationEnabled: true,
+          }}
+        />
+        <Stack.Screen
+          name="RecentSongs"
+          component={RecentSongsScreen}
+          options={{
             animationEnabled: true,
           }}
         />

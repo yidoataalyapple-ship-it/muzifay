@@ -15,6 +15,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import PlayerControls from '../components/PlayerControls';
 import GradientBackground from '../components/GradientBackground';
+import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
 
 const { width } = Dimensions.get('window');
 const COVER_SIZE = width * 0.75;
@@ -73,6 +74,7 @@ const PlayerScreen = () => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.headerButton}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
             <Ionicons name="chevron-down" size={28} color={Colors.textPrimary} />
           </TouchableOpacity>
@@ -85,7 +87,7 @@ const PlayerScreen = () => {
         </View>
 
         {/* Kapak Fotografi */}
-        <View style={styles.coverContainer}>
+        <Animated.View entering={FadeIn.delay(200)} style={styles.coverContainer}>
           <LinearGradient
             colors={Gradients.main}
             style={styles.coverGradient}
@@ -96,10 +98,10 @@ const PlayerScreen = () => {
               resizeMode="cover"
             />
           </LinearGradient>
-        </View>
+        </Animated.View>
 
         {/* Sarki Bilgisi */}
-        <View style={styles.infoContainer}>
+        <Animated.View entering={FadeInUp.delay(300)} style={styles.infoContainer}>
           <View style={styles.titleRow}>
             <View style={styles.titleContainer}>
               <Text style={styles.title} numberOfLines={1}>
@@ -112,6 +114,7 @@ const PlayerScreen = () => {
             <TouchableOpacity
               onPress={() => toggleLike(currentSong.id)}
               style={styles.likeButton}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             >
               <Ionicons
                 name={isLiked(currentSong.id) ? 'heart' : 'heart-outline'}
@@ -120,10 +123,10 @@ const PlayerScreen = () => {
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
 
         {/* Progress Bar */}
-        <View style={styles.progressContainer}>
+        <Animated.View entering={FadeInUp.delay(400)} style={styles.progressContainer}>
           <TouchableOpacity
             style={styles.progressBarBackground}
             onPress={handleSeek}
@@ -148,12 +151,12 @@ const PlayerScreen = () => {
             <Text style={styles.timeText}>{formatTime(position)}</Text>
             <Text style={styles.timeText}>{formatTime(duration)}</Text>
           </View>
-        </View>
+        </Animated.View>
 
         {/* Kontroller */}
-        <View style={styles.controlsContainer}>
+        <Animated.View entering={FadeInUp.delay(500)} style={styles.controlsContainer}>
           <PlayerControls size="large" />
-        </View>
+        </Animated.View>
 
         {/* Alt Butonlar */}
         <View style={styles.footerButtons}>

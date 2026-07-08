@@ -14,11 +14,12 @@ import { useMusic } from '../context/MusicContext';
 import SongListItem from '../components/SongListItem';
 import AlbumCard from '../components/AlbumCard';
 import GradientBackground from '../components/GradientBackground';
+import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const HomeScreen = ({ navigation }) => {
-  const { songs, albums, currentSong, playSong, getLikedSongsList } = useMusic();
+  const { songs, albums, currentSong, playSong, getLikedSongsList, recentSongs } = useMusic();
 
-  const recentSongs = songs.slice(0, 6);
+  const recentSongsList = songs.slice(0, 6);
   const popularSongs = [...songs].sort(() => Math.random() - 0.5).slice(0, 5);
   const likedSongsList = getLikedSongsList();
 
@@ -27,6 +28,14 @@ const HomeScreen = ({ navigation }) => {
     if (hour < 12) return 'Gunaydin';
     if (hour < 18) return 'Iyi gunler';
     return 'Iyi aksamlar';
+  };
+
+  const handleAlbumPress = (album) => {
+    // Albumdeki sarkilari cal
+    const albumSongs = songs.filter(s => album.songs.includes(s.id));
+    if (albumSongs.length > 0) {
+      playSong(albumSongs[0], albumSongs);
+    }
   };
 
   return (
@@ -53,32 +62,70 @@ const HomeScreen = ({ navigation }) => {
           contentContainerStyle={styles.scrollContent}
         >
           {/* Hizli Erisim */}
-          <View style={styles.quickAccess}>
-            {recentSongs.slice(0, 6).map((song, index) => (
-              <TouchableOpacity
-                key={song.id}
-                style={[
-                  styles.quickItem,
-                  currentSong?.id === song.id && styles.quickItemActive,
-                ]}
-                onPress={() => playSong(song)}
-              >
-                <View style={styles.quickItemContent}>
-                  <Text style={styles.quickItemText} numberOfLines={1}>
-                    {song.title}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <Animated.View entering={FadeIn.delay(100)}>
+            <View style={styles.quickAccess}>
+              {recentSongsList.slice(0, 6).map((song, index) => (
+                <TouchableOpacity
+                  key={song.id}
+                  style={[
+                    styles.quickItem,
+                    currentSong?.id === song.id && styles.quickItemActive,
+                  ]}
+                  onPress={() => playSong(song)}
+                  activeOpacity={0.7}
+                >
+                  <View style={styles.quickItemContent}>
+                    <Ionicons 
+                      name={currentSong?.id === song.id ? "volume-medium" : "musical-note"} 
+                      size={14} 
+                      color={currentSong?.id === song.id ? Colors.primary : Colors.textSecondary}
+                      style={styles.quickIcon}
+                    />
+                    <Text style={styles.quickItemText} numberOfLines={1}>
+                      {song.title}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </Animated.View>
 
           {/* Son Calinanlar */}
-          <View style={styles.section}>
+          {recentSongs.length > 0 && (
+            <Animated.View entering={FadeInUp.delay(150)} style={styles.section}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionTitle}>Yakinda Calinan</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('RecentSongs')}>
+                  <Text style={styles.seeAll}>Tumunu Goster</Text>
+                </TouchableOpacity>
+              </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.horizontalList}
+              >
+                {recentSongs.slice(0, 10).map((song) => (
+                  <TouchableOpacity
+                    key={`recent-${song.id}`}
+                    style={styles.recentCard}
+                    onPress={() => playSong(song)}
+                    activeOpacity={0.8}
+                  >
+                    <View style={styles.recentCardContent}>
+                      <Ionicons name="musical-note" size={24} color={Colors.primary} />
+                      <Text style={styles.recentCardTitle} numberOfLines={1}>{song.title}</Text>
+                      <Text style={styles.recentCardArtist} numberOfLines={1}>{song.artist}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </Animated.View>
+          )}
+
+          {/* Albumler */}
+          <Animated.View entering={FadeInUp.delay(200)} style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Yakinda Calinan</Text>
-              <TouchableOpacity>
-                <Text style={styles.seeAll}>Tumunu Goster</Text>
-              </TouchableOpacity>
+              <Text style={styles.sectionTitle}>Albumler</Text>
             </View>
             <ScrollView
               horizontal
@@ -89,21 +136,16 @@ const HomeScreen = ({ navigation }) => {
                 <AlbumCard
                   key={album.id}
                   album={album}
-                  onPress={(album) => {
-                    // Album detayina git
-                  }}
+                  onPress={handleAlbumPress}
                 />
               ))}
             </ScrollView>
-          </View>
+          </Animated.View>
 
           {/* Populer Sarkilar */}
-          <View style={styles.section}>
+          <Animated.View entering={FadeInUp.delay(250)} style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Populer Sarkilar</Text>
-              <TouchableOpacity>
-                <Text style={styles.seeAll}>Tumunu Goster</Text>
-              </TouchableOpacity>
             </View>
             {popularSongs.map((song, index) => (
               <SongListItem
@@ -112,14 +154,14 @@ const HomeScreen = ({ navigation }) => {
                 index={index + 1}
               />
             ))}
-          </View>
+          </Animated.View>
 
           {/* Begenilen Sarkilar */}
           {likedSongsList.length > 0 && (
-            <View style={styles.section}>
+            <Animated.View entering={FadeInUp.delay(300)} style={styles.section}>
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>Begenilen Sarkilar</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('LikedSongs')}>
                   <Text style={styles.seeAll}>Tumunu Goster</Text>
                 </TouchableOpacity>
               </View>
@@ -130,11 +172,11 @@ const HomeScreen = ({ navigation }) => {
                   index={index + 1}
                 />
               ))}
-            </View>
+            </Animated.View>
           )}
 
           {/* Tum Sarkilar */}
-          <View style={styles.section}>
+          <Animated.View entering={FadeInUp.delay(350)} style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Tum Sarkilar</Text>
             </View>
@@ -145,7 +187,7 @@ const HomeScreen = ({ navigation }) => {
                 index={index + 1}
               />
             ))}
-          </View>
+          </Animated.View>
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -198,16 +240,22 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   quickItemActive: {
-    backgroundColor: 'rgba(29, 185, 84, 0.15)',
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
   },
   quickItemContent: {
     paddingVertical: 12,
     paddingHorizontal: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quickIcon: {
+    marginRight: 8,
   },
   quickItemText: {
     color: Colors.textPrimary,
     fontSize: 12,
     fontWeight: '600',
+    flex: 1,
   },
   section: {
     marginBottom: 24,
@@ -225,11 +273,37 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   seeAll: {
-    color: Colors.textSecondary,
+    color: Colors.primaryLight,
     fontSize: 12,
+    fontWeight: '600',
   },
   horizontalList: {
     paddingHorizontal: 20,
+  },
+  recentCard: {
+    width: 140,
+    height: 140,
+    backgroundColor: Colors.surface,
+    borderRadius: 12,
+    marginRight: 12,
+    padding: 12,
+    justifyContent: 'center',
+  },
+  recentCardContent: {
+    alignItems: 'center',
+  },
+  recentCardTitle: {
+    color: Colors.textPrimary,
+    fontSize: 13,
+    fontWeight: '600',
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  recentCardArtist: {
+    color: Colors.textSecondary,
+    fontSize: 11,
+    marginTop: 2,
+    textAlign: 'center',
   },
   bottomPadding: {
     height: 120,
