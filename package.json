@@ -1,1 +1,50 @@
-ewogICJuYW1lIjogIm11emlmYXkiLAogICJ2ZXJzaW9uIjogIjEuMC4wIiwKICAiZGVzY3JpcHRpb24iOiAiTXV6aWZheSAtIE1vZGVybiBNdXppayBDYWxhciBVeWd1bGFtYXNpIiwKICAibWFpbiI6ICJub2RlX21vZHVsZXMvZXhwby9BcHBFbnRyeS5qcyIsCiAgInNjcmlwdHMiOiB7CiAgICAic3RhcnQiOiAiZXhwbyBzdGFydCIsCiAgICAiYW5kcm9pZCI6ICJleHBvIHN0YXJ0IC0tYW5kcm9pZCIsCiAgICAiaW9zIjogImV4cG8gc3RhcnQgLS1pb3MiLAogICAgIndlYiI6ICJleHBvIHN0YXJ0IC0td2ViIiwKICAgICJsaW50IjogImVzbGludCAuIiwKICAgICJidWlsZDphbmRyb2lkIjogImVhcyBidWlsZCAtLXBsYXRmb3JtIGFuZHJvaWQiLAogICAgImJ1aWxkOmlvcyI6ICJlYXMgYnVpbGQgLS1wbGF0Zm9ybSBpb3MiLAogICAgImJ1aWxkOmFsbCI6ICJlYXMgYnVpbGQgLS1wbGF0Zm9ybSBhbGwiLAogICAgInN1Ym1pdDphbmRyb2lkIjogImVhcyBzdWJtaXQgLS1wbGF0Zm9ybSBhbmRyb2lkIiwKICAgICJzdWJtaXQ6aW9zIjogImVhcyBzdWJtaXQgLS1wbGF0Zm9ybSBpb3MiCiAgfSwKICAiZGVwZW5kZW5jaWVzIjogewogICAgImV4cG8iOiAifjUwLjAuMCIsCiAgICAiZXhwby1zdGF0dXMtYmFyIjogIn4xLjExLjAiLAogICAgImV4cG8tYXYiOiAifjEzLjEwLjAiLAogICAgImV4cG8tbGluZWFyLWdyYWRpZW50IjogIn4xMi43LjAiLAogICAgImV4cG8tc3BsYXNoLXNjcmVlbiI6ICJ+MC4yNi4wIiwKICAgICJleHBvLXVwZGF0ZXMiOiAifjAuMjQuMCIsCiAgICAiZXhwby1zZWN1cmUtc3RvcmUiOiAifjEyLjguMCIsCiAgICAiZXhwby1kb2N1bWVudC1waWNrZXIiOiAifjExLjEwLjAiLAogICAgImV4cG8tZm9udCI6ICJ+MTEuMTAuMCIsCiAgICAiQGV4cG8vdmVjdG9yLWljb25zIjogIl4xNC4wLjAiLAogICAgInJlYWN0IjogIjE4LjIuMCIsCiAgICAicmVhY3QtbmF0aXZlIjogIjAuNzMuNiIsCiAgICAicmVhY3QtbmF0aXZlLXNjcmVlbnMiOiAifjMuMjkuMCIsCiAgICAicmVhY3QtbmF0aXZlLXNhZmUtYXJlYS1jb250ZXh0IjogIjQuOC4yIiwKICAgICJyZWFjdC1uYXRpdmUtZ2VzdHVyZS1oYW5kbGVyIjogIn4yLjE0LjAiLAogICAgInJlYWN0LW5hdGl2ZS1yZWFuaW1hdGVkIjogIn4zLjYuMCIsCiAgICAiQHJlYWN0LW5hdmlnYXRpb24vbmF0aXZlIjogIl42LjEuMCIsCiAgICAiQHJlYWN0LW5hdmlnYXRpb24vYm90dG9tLXRhYnMiOiAiXjYuNS4wIiwKICAgICJAZXhwby92ZWN0b3ItaWNvbnMiOiAiXjE0LjAuMCIsCiAgICAiQHJlYWN0LW5hdGl2ZS1hc3luYy1zdG9yYWdlL2FzeW5jLXN0b3JhZ2UiOiAiMS4yMS4wIiwKICAgICJmaXJlYmFzZSI6ICJeMTAuNy4wIiwKICAgICJyZWFjdC1uYXRpdmUtdHJhY2stcGxheWVyIjogIl40LjAuMCIsCiAgICAiQHJlYWN0LW5hdGl2ZS1jb21tdW5pdHkvc2xpZGVyIjogIjQuNC4yIiwKICAgICJAbG90dGllLXJlYWN0LW5hdGl2ZSI6ICI2LjUuMSIKICB9LAogICJkZXZEZXBlbmRlbmNpZXMiOiB7CiAgICAiQGJhYmVsL2NvcmUiOiAiXjcuMjAuMCIsCiAgICAiZXNsaW50IjogIl44LjU2LjAiLAogICAgIkByZWFjdC1uYXRpdmUtY29tbXVuaXR5L2VzbGludC1jb25maWciOiAiXjMuMi4wIgogIH0sCiAgInByaXZhdGUiOiB0cnVlCn0K
+{
+  "name": "muzifay",
+  "version": "1.0.0",
+  "description": "Muzifay - Modern Muzik Calar Uygulamasi",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "eslint .",
+    "build:android": "eas build --platform android",
+    "build:ios": "eas build --platform ios",
+    "build:all": "eas build --platform all",
+    "submit:android": "eas submit --platform android",
+    "submit:ios": "eas submit --platform ios"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "expo-status-bar": "~1.11.0",
+    "expo-av": "~13.10.0",
+    "expo-linear-gradient": "~12.7.0",
+    "expo-splash-screen": "~0.26.0",
+    "expo-updates": "~0.24.0",
+    "expo-secure-store": "~12.8.0",
+    "expo-document-picker": "~11.10.0",
+    "expo-font": "~11.10.0",
+    "@expo/vector-icons": "^14.0.0",
+    "react": "18.2.0",
+    "react-native": "0.73.6",
+    "react-native-screens": "~3.29.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-reanimated": "~3.6.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "@react-navigation/stack": "^6.3.0",
+    "@react-native-async-storage/async-storage": "1.21.0",
+    "firebase": "^10.7.0",
+    "react-native-track-player": "^4.0.0",
+    "@react-native-community/slider": "4.4.2",
+    "lottie-react-native": "6.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "eslint": "^8.56.0",
+    "@react-native-community/eslint-config": "^3.2.0"
+  },
+  "private": true
+}
