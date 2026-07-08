@@ -19,15 +19,10 @@ jobs:
           node-version: '18'
 
       - name: Setup EAS CLI
-        uses: expo-go/install-eas-cli@v1
+        uses: expo/expo-github-action@v8
         with:
           eas-version: latest
-          pack-generator: npm
-
-      - name: Login to Expo
-        run: eas login
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build APK (Android)
         run: eas build --platform android --profile preview --non-interactive
