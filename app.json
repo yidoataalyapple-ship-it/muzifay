@@ -1,1 +1,61 @@
-ewogICJleHBvIjogewogICAgIm5hbWUiOiAiTXV6aWZheSIsCiAgICAic2x1ZyI6ICJtdXppZmF5LW5ldyIsCiAgICAidmVyc2lvbiI6ICIxLjAuMCIsCiAgICAib3JpZW50YXRpb24iOiAicG9ydHJhaXQiLAogICAgImljb24iOiAiLi9hc3NldHMvaWNvbi5wbmciLAogICAgInVzZXJJbnRlcmZhY2VTdHlsZSI6ICJkYXJrIiwKICAgICJzcGxhc2giOiB7CiAgICAgICJpbWFnZSI6ICIuL2Fzc2V0cy9zcGxhc2gucG5nIiwKICAgICAgInJlc2l6ZU1vZGUiOiAiY29udGFpbiIsCiAgICAgICJiYWNrZ3JvdW5kQ29sb3IiOiAiIzBGMEIxRSIKICAgIH0sCiAgICAiYXNzZXRCdW5kbGVQYXR0ZXJucyI6IFsKICAgICAgIioqLyoiCiAgICBdLAogICAgImlvcyI6IHsKICAgICAgInN1cHBvcnRzVGFibGV0IjogdHJ1ZSwKICAgICAgImJ1bmRsZUlkZW50aWZpZXIiOiAiY29tLm11emlmYXkuYXBwIiwKICAgICAgImJ1aWxkTnVtYmVyIjogIjEuMC4wIiwKICAgICAgImluZm9QbGlzdCI6IHsKICAgICAgICAiVUlCYWNrZ3JvdW5kTW9kZXMiOiBbCiAgICAgICAgICAiYXVkaW8iCiAgICAgICAgXSwKICAgICAgICAiTlNBcHBUcmFuc3BvcnRTZWN1cml0eSI6IHsKICAgICAgICAgICJOU0FsbG93c0FyYml0cmFyeUxvYWRzIjogdHJ1ZQogICAgICAgIH0KICAgICAgfQogICAgfSwKICAgICJhbmRyb2lkIjogewogICAgICAicGFja2FnZSI6ICJjb20ubXV6aWZheS5hcHAiLAogICAgICAidmVyc2lvbkNvZGUiOiAxLAogICAgICAiYWRhcHRpdmVJY29uIjogewogICAgICAgICJmb3JlZ3JvdW5kSW1hZ2UiOiAiLi9hc3NldHMvYWRhcHRpdmUtaWNvbi5wbmciLAogICAgICAgICJiYWNrZ3JvdW5kQ29sb3IiOiAiIzBGMEIxRSIKICAgICAgfSwKICAgICAgInBlcm1pc3Npb25zIjogWwogICAgICAgICJhbmRyb2lkLnBlcm1pc3Npb24uRk9SRUdST1VORF9TRVJWSUNFIiwKICAgICAgICAiYW5kcm9pZC5wZXJtaXNzaW9uLkZPUkVHUk9VTkRfU0VSVklDRV9NRURJQV9QTEFZQkFDSyIsCiAgICAgICAgImFuZHJvaWQucGVybWlzc2lvbi5SRUFEX0VYVEVSTkFMX1NUT1JBR0UiLAogICAgICAgICJhbmRyb2lkLnBlcm1pc3Npb24uUkVBRF9NRURJQV9BVURJTyIKICAgICAgXQogICAgfSwKICAgICJ3ZWIiOiB7CiAgICAgICJmYXZpY29uIjogIi4vYXNzZXRzL2Zhdmljb24ucG5nIgogICAgfSwKICAgICJleHRyYSI6IHsKICAgICAgImVhcyI6IHsKICAgICAgICAicHJvamVjdElkIjogIjdlMjllZjhjLWQwZDYtNDM2OC1iNWI0LTFhYzE2YzljNzhhMyIKICAgICAgfQogICAgfSwKICAgICJvd25lciI6ICJpc21haWxkb21hbHRhbiIsCiAgICAidXBkYXRlcyI6IHsKICAgICAgInVybCI6ICJodHRwczovL3UuZXhwby5kZXYvN2UyOWVmOGMtZDBkNi00MzY4LWI1YjQtMWFjMTZjOWM3OGEzIgogICAgfSwKICAgICJydW50aW1lVmVyc2lvbiI6IHsKICAgICAgInBvbGljeSI6ICJzZGtWZXJzaW9uIgogICAgfSwKICAgICJwbHVnaW5zIjogW10KICB9Cn0=
+{
+  "expo": {
+    "name": "Muzifay",
+    "slug": "muzifay-new",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F0B1E"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.muzifay.app",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "audio"
+        ],
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
+    },
+    "android": {
+      "package": "com.muzifay.app",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F0B1E"
+      },
+      "permissions": [
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7e29ef8c-d0d6-4368-b5b4-1ac16c9c78a3"
+      }
+    },
+    "owner": "ismaildomaltan",
+    "updates": {
+      "url": "https://u.expo.dev/7e29ef8c-d0d6-4368-b5b4-1ac16c9c78a3"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "plugins": []
+  }
+}
