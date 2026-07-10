@@ -60,14 +60,6 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": [
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-4492429510539065~4639555910",
-          "iosAppId": "ca-app-pub-4492429510539065~4639555910"
-        }
-      ]
-    ]
+    "plugins": []
   }
 }
