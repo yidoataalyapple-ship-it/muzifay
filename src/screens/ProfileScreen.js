@@ -16,11 +16,14 @@ import { Colors, Gradients } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
 import { useMusic } from '../context/MusicContext';
 import GradientBackground from '../components/GradientBackground';
+import AdBanner from '../components/AdBanner';
+import { useAds } from '../hooks/useAds';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const ProfileScreen = () => {
   const { user, logout, updateProfile } = useAuth();
   const { songs, likedSongs, playlists, recentSongs } = useMusic();
+  const { rewardedLoaded, showRewarded, rewardEarned } = useAds();
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [displayName, setDisplayName] = useState(user?.displayName || '');
 
@@ -37,9 +40,7 @@ const ProfileScreen = () => {
       title: 'Begenilen Sarkilar',
       description: `${likedSongs.length} begenilen sarki`,
       icon: 'heart-outline',
-      onPress: () => {
-        // Navigation handled by parent
-      },
+      onPress: () => {},
     },
     {
       id: 'storage',
@@ -71,7 +72,6 @@ const ProfileScreen = () => {
 
   const handleSaveProfile = () => {
     if (displayName.trim()) {
-      // Profil guncelleme
       setEditModalVisible(false);
       Alert.alert('Basarili', 'Profiliniz guncellendi.');
     }
@@ -88,9 +88,20 @@ const ProfileScreen = () => {
     );
   };
 
+  const handleShowRewardedAd = () => {
+    if (rewardedLoaded) {
+      showRewarded();
+    } else {
+      Alert.alert('Reklam Yukleniyor', 'Lutfen biraz bekleyin, reklam hazirlaniyor...');
+    }
+  };
+
   return (
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner />
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
@@ -129,6 +140,39 @@ const ProfileScreen = () => {
               <Text style={styles.statNumber}>{playlists.length}</Text>
               <Text style={styles.statLabel}>Playlist</Text>
             </View>
+          </Animated.View>
+
+          {/* Odullu Reklam Butonu */}
+          <Animated.View entering={FadeInUp.delay(180)} style={styles.rewardedContainer}>
+            <TouchableOpacity
+              style={styles.rewardedButton}
+              onPress={handleShowRewardedAd}
+              activeOpacity={0.8}
+            >
+              <LinearGradient
+                colors={['#F59E0B', '#D97706']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.rewardedGradient}
+              >
+                <Ionicons name="gift-outline" size={24} color="#FFFFFF" />
+                <View style={styles.rewardedTextContainer}>
+                  <Text style={styles.rewardedTitle}>
+                    {rewardEarned ? 'Odul Kazanildi!' : 'Ucretsiz Odul Kazan'}
+                  </Text>
+                  <Text style={styles.rewardedSubtitle}>
+                    {rewardEarned 
+                      ? 'Tebrikler! Odulunuz eklendi.' 
+                      : (rewardedLoaded ? 'Reklam izle, odul kazan' : 'Reklam yukleniyor...')}
+                  </Text>
+                </View>
+                <Ionicons 
+                  name={rewardedLoaded ? "play-circle" : "time-outline"} 
+                  size={28} 
+                  color="#FFFFFF" 
+                />
+              </LinearGradient>
+            </TouchableOpacity>
           </Animated.View>
 
           {/* Menu */}
@@ -195,6 +239,9 @@ const ProfileScreen = () => {
               <Text style={styles.logoutText}>Cikis Yap</Text>
             </TouchableOpacity>
           </Animated.View>
+
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -310,6 +357,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4,
   },
+  rewardedContainer: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  rewardedButton: {
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  rewardedGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    gap: 12,
+  },
+  rewardedTextContainer: {
+    flex: 1,
+  },
+  rewardedTitle: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  rewardedSubtitle: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 12,
+    marginTop: 2,
+  },
   menuContainer: {
     backgroundColor: Colors.surface,
     marginHorizontal: 20,
@@ -404,7 +479,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
   modalOverlay: {
     flex: 1,
