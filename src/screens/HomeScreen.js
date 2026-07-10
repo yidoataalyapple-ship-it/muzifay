@@ -14,6 +14,7 @@ import { useMusic } from '../context/MusicContext';
 import SongListItem from '../components/SongListItem';
 import AlbumCard from '../components/AlbumCard';
 import GradientBackground from '../components/GradientBackground';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const HomeScreen = ({ navigation }) => {
@@ -31,7 +32,6 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleAlbumPress = (album) => {
-    // Albumdeki sarkilari cal
     const albumSongs = songs.filter(s => album.songs.includes(s.id));
     if (albumSongs.length > 0) {
       playSong(albumSongs[0], albumSongs);
@@ -42,6 +42,9 @@ const HomeScreen = ({ navigation }) => {
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
         <StatusBar barStyle="light-content" backgroundColor={Colors.background} />
+
+        {/* Ust Banner Reklam */}
+        <AdBanner />
 
         {/* Header */}
         <View style={styles.header}>
@@ -189,6 +192,9 @@ const HomeScreen = ({ navigation }) => {
             ))}
           </Animated.View>
 
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
+
           <View style={styles.bottomPadding} />
         </ScrollView>
       </SafeAreaView>
@@ -306,7 +312,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
 });
 
