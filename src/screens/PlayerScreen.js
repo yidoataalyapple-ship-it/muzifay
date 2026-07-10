@@ -15,6 +15,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import PlayerControls from '../components/PlayerControls';
 import GradientBackground from '../components/GradientBackground';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated';
 
 const { width } = Dimensions.get('window');
@@ -69,6 +70,9 @@ const PlayerScreen = () => {
   return (
     <GradientBackground colors={Gradients.player}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner size="BANNER" />
+
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity
@@ -182,6 +186,9 @@ const PlayerScreen = () => {
             />
           </TouchableOpacity>
         </View>
+
+        {/* Alt Banner Reklam */}
+        <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
       </SafeAreaView>
     </GradientBackground>
   );
@@ -238,8 +245,8 @@ const styles = StyleSheet.create({
   },
   coverContainer: {
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 32,
+    marginTop: 10,
+    marginBottom: 24,
   },
   coverGradient: {
     padding: 3,
@@ -252,7 +259,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     paddingHorizontal: 32,
-    marginBottom: 24,
+    marginBottom: 20,
   },
   titleRow: {
     flexDirection: 'row',
@@ -277,7 +284,7 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     paddingHorizontal: 32,
-    marginBottom: 16,
+    marginBottom: 12,
   },
   progressBarBackground: {
     height: 24,
@@ -319,13 +326,13 @@ const styles = StyleSheet.create({
   },
   controlsContainer: {
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 16,
   },
   footerButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 48,
-    marginBottom: 32,
+    marginBottom: 16,
   },
   footerButton: {
     padding: 8,
