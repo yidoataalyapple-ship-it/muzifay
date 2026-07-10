@@ -13,6 +13,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import GradientBackground from '../components/GradientBackground';
 import SongListItem from '../components/SongListItem';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -29,6 +30,9 @@ const RecentSongsScreen = () => {
   return (
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner />
+
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity
@@ -78,7 +82,7 @@ const RecentSongsScreen = () => {
           {recentSongs.length === 0 ? (
             <Animated.View entering={FadeIn.delay(300)} style={styles.emptyContainer}>
               <Ionicons name="time-outline" size={64} color={Colors.textMuted} />
-              <Text style={styles.emptyTitle}>Henüz sarki calinmadi</Text>
+              <Text style={styles.emptyTitle}>Henuz sarki calinmadi</Text>
               <Text style={styles.emptyText}>
                 Sarki caldiginda burada listelenecek.
               </Text>
@@ -94,6 +98,9 @@ const RecentSongsScreen = () => {
               ))}
             </Animated.View>
           )}
+
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -179,7 +186,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
 });
 
