@@ -30,13 +30,10 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
-      - name: Mask token
-        run: echo '::add-mask::LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN'
-
       - name: Build Android APK
         run: eas build --platform android --profile preview --non-interactive --no-wait
         env:
-          EXPO_TOKEN: LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
   build-ios:
     name: Build iOS IPA
@@ -57,10 +54,7 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
-      - name: Mask token
-        run: echo '::add-mask::LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN'
-
       - name: Build iOS IPA
         run: eas build --platform ios --profile preview --non-interactive --no-wait
         env:
-          EXPO_TOKEN: LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
