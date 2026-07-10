@@ -1,1 +1,1 @@
-# Build Status - Triggered rebuild with new EXPO_TOKEN
+# Build Status - Triggered rebuild with fixed EXPO_TOKEN
