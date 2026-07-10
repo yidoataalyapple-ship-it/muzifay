@@ -30,10 +30,13 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
+      - name: Mask token
+        run: echo '::add-mask::LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN'
+
       - name: Build Android APK
         run: eas build --platform android --profile preview --non-interactive --no-wait
         env:
-          EXPO_TOKEN: '{{ secrets.EXPO_TOKEN }}'
+          EXPO_TOKEN: LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN
 
   build-ios:
     name: Build iOS IPA
@@ -41,7 +44,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - name: Checkout repo
-        uses: actions/checkout@0v4
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -54,7 +57,10 @@ jobs:
       - name: Install EAS CLI
         run: npm install -g eas-cli
 
+      - name: Mask token
+        run: echo '::add-mask::LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN'
+
       - name: Build iOS IPA
         run: eas build --platform ios --profile preview --non-interactive --no-wait
         env:
-          EXPO_TOKEN: '{{ secrets.EXPO_TOKEN }}'
+          EXPO_TOKEN: LuePxUhj6Zz9lOgo6iXAgm_RGzili9QVuWFpuDMN
