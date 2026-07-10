@@ -13,6 +13,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import SongListItem from '../components/SongListItem';
 import GradientBackground from '../components/GradientBackground';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const GENRES = [
@@ -54,6 +55,9 @@ const SearchScreen = () => {
   return (
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner />
+
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Ara</Text>
@@ -94,7 +98,6 @@ const SearchScreen = () => {
           contentContainerStyle={styles.scrollContent}
         >
           {isSearching ? (
-            /* Arama Sonuclari */
             <Animated.View entering={FadeIn} style={styles.resultsContainer}>
               {searchResults.length > 0 ? (
                 <>
@@ -126,7 +129,6 @@ const SearchScreen = () => {
               )}
             </Animated.View>
           ) : selectedGenre ? (
-            /* Tur Sonuclari */
             <Animated.View entering={FadeIn}>
               <View style={styles.genreHeader}>
                 <TouchableOpacity
@@ -155,7 +157,6 @@ const SearchScreen = () => {
               )}
             </Animated.View>
           ) : (
-            /* Turler */
             <>
               <Text style={styles.sectionTitle}>Hepsine goz at</Text>
               <View style={styles.genresGrid}>
@@ -186,6 +187,9 @@ const SearchScreen = () => {
               </View>
             </>
           )}
+
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -316,7 +320,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
 });
 
