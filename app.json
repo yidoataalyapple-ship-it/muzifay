@@ -24,7 +24,9 @@
         ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
-        }
+        },
+        "GADApplicationIdentifier": "ca-app-pub-4492429510539065~2943330866",
+        "GADIsAdManagerApp": true
       }
     },
     "android": {
@@ -39,7 +41,10 @@
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.READ_MEDIA_AUDIO"
-      ]
+      ],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-4492429510539065~4639555910"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -56,6 +61,44 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": []
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-4492429510539065~4639555910",
+          "iosAppId": "ca-app-pub-4492429510539065~2943330866",
+          "userTrackingUsageDescription": "Bu uygulama size daha iyi ve kişiselleştirilmiş reklamlar sunmak için cihaz bilgilerinizi kullanır.",
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork",
+            "4fzdc2evr5.skadnetwork",
+            "4pfyvq9l8r.skadnetwork",
+            "2fnua5tdw4.skadnetwork",
+            "ydx93a7ass.skadnetwork",
+            "5a6flpkh64.skadnetwork",
+            "p78axxw29g.skadnetwork",
+            "v72qych5uu.skadnetwork",
+            "ludvb6z3bs.skadnetwork",
+            "cp8zw746q7.skadnetwork",
+            "3sh42y64q3.skadnetwork",
+            "c6k4g5qg8m.skadnetwork",
+            "s39g8k73mm.skadnetwork",
+            "3qy4746246.skadnetwork",
+            "f38h382jlk.skadnetwork",
+            "hs6bdukanm.skadnetwork",
+            "v4nxqhlyqp.skadnetwork",
+            "wzmmz9fp6w.skadnetwork",
+            "yclnxrc5td.skadnetwork",
+            "t38b2kh725.skadnetwork",
+            "7ug5zh24hu.skadnetwork",
+            "gta9lk7p23.skadnetwork",
+            "vutu7akeur.skadnetwork",
+            "y5ghdn5j9k.skadnetwork",
+            "n6fk4nfna4.skadnetwork",
+            "v9wttpbfk9.skadnetwork",
+            "n38lu8286q.skadnetwork"
+          ]
+        }
+      ]
+    ]
   }
 }

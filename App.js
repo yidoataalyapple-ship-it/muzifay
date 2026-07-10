@@ -14,11 +14,15 @@ import AppNavigator from './src/navigation/AppNavigator';
 // Tema
 import { Colors } from './src/theme/colors';
 
+// AdMob
+import { useAds } from './src/hooks/useAds';
+
 // Splash screen'i gosterme
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appReady, setAppReady] = useState(false);
+  const { interstitialLoaded, showInterstitial } = useAds();
 
   useEffect(() => {
     async function prepare() {
@@ -43,6 +47,17 @@ export default function App() {
 
     prepare();
   }, []);
+
+  // App acilisinda interstitial reklami goster
+  useEffect(() => {
+    if (appReady && interstitialLoaded) {
+      // Kisa bir gecikme ile reklami goster (splash'tan sonra)
+      const timer = setTimeout(() => {
+        showInterstitial();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [appReady, interstitialLoaded, showInterstitial]);
 
   const onLayoutRootView = useCallback(async () => {
     if (appReady) {
