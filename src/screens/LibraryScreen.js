@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import GradientBackground from '../components/GradientBackground';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -55,7 +56,6 @@ const LibraryScreen = ({ navigation }) => {
 
   const handleCreatePlaylist = () => {
     if (newPlaylistName.trim()) {
-      // Playlist olusturma mantigi eklenebilir
       setNewPlaylistName('');
       setCreateModalVisible(false);
     }
@@ -64,6 +64,9 @@ const LibraryScreen = ({ navigation }) => {
   return (
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner />
+
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Kitapligin</Text>
@@ -148,6 +151,9 @@ const LibraryScreen = ({ navigation }) => {
               </TouchableOpacity>
             ))}
           </Animated.View>
+
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -292,7 +298,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
   modalOverlay: {
     flex: 1,
