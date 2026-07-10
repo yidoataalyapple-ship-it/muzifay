@@ -6,4 +6,5 @@
 - app.json: iOS AdMob App ID duzeltildi
 
 ## Build Takibi
-- Build hatalari duzeltiliyor, basarili olana kadar takip edilecek.
+- Expo access token yenilendi ve GitHub EXPO_TOKEN secret olarak ayarlandi
+- Yeni build tetikleniyor...
