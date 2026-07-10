@@ -10,6 +10,10 @@ import mobileAds, {
 const INTERSTITIAL_ID = 'ca-app-pub-4492429510539065/5179858800';
 const REWARDED_ID = 'ca-app-pub-4492429510539065/1899089349';
 
+// Test ID'leri (gelistirme sirasinda kullanin)
+// const INTERSTITIAL_ID = 'ca-app-pub-3940256099942544/1033173712';
+// const REWARDED_ID = 'ca-app-pub-3940256099942544/5224354917';
+
 // ==================== REKLAM NESNELERI ====================
 const interstitialAd = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
   requestNonPersonalizedAdsOnly: true,
@@ -22,6 +26,7 @@ const rewardedAd = RewardedAd.createForAdRequest(REWARDED_ID, {
 /**
  * AdMob reklam yonetimi hook'u
  * Interstitial ve Rewarded reklamlarin yuklenmesi/gosterilmesini yonetir
+ * Banner reklamlar icin BannerAdComponent kullanin
  */
 export const useAds = () => {
   const [interstitialLoaded, setInterstitialLoaded] = useState(false);
@@ -57,7 +62,6 @@ export const useAds = () => {
         console.log('Interstitial reklam kapandi');
         setInterstitialLoaded(false);
         interstitialShown.current = false;
-        // Yeni reklam yukle
         interstitialAd.load();
       }
     );
@@ -67,12 +71,10 @@ export const useAds = () => {
       (error) => {
         console.log('Interstitial reklam hatasi:', error);
         setInterstitialLoaded(false);
-        // Hata durumunda tekrar dene
         setTimeout(() => interstitialAd.load(), 30000);
       }
     );
 
-    // Ilk reklami yukle
     interstitialAd.load();
 
     return () => {
@@ -106,7 +108,6 @@ export const useAds = () => {
         console.log('Rewarded reklam kapandi');
         setRewardedLoaded(false);
         setRewardEarned(null);
-        // Yeni reklam yukle
         rewardedAd.load();
       }
     );
@@ -116,12 +117,10 @@ export const useAds = () => {
       (error) => {
         console.log('Rewarded reklam hatasi:', error);
         setRewardedLoaded(false);
-        // Hata durumunda tekrar dene
         setTimeout(() => rewardedAd.load(), 30000);
       }
     );
 
-    // Ilk reklami yukle
     rewardedAd.load();
 
     return () => {
