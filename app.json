@@ -25,7 +25,7 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         },
-        "GADApplicationIdentifier": "ca-app-pub-4492429510539065~2943330866",
+        "GADApplicationIdentifier": "ca-app-pub-4492429510539065~4639555910",
         "GADIsAdManagerApp": true
       }
     },
@@ -66,7 +66,7 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-4492429510539065~4639555910",
-          "iosAppId": "ca-app-pub-4492429510539065~2943330866",
+          "iosAppId": "ca-app-pub-4492429510539065~4639555910",
           "userTrackingUsageDescription": "Bu uygulama size daha iyi ve kişiselleştirilmiş reklamlar sunmak için cihaz bilgilerinizi kullanır.",
           "skAdNetworkItems": [
             "cstr6suwn9.skadnetwork",

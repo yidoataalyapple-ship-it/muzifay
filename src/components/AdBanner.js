@@ -4,7 +4,8 @@ import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 import { Colors } from '../theme/colors';
 
 // ==================== REKLAM BIRIM ID'LERI ====================
-const BANNER_ID = 'ca-app-pub-4492429510539065/5179858800';
+// Banner icin ayri test birimi ID'si
+const BANNER_ID = 'ca-app-pub-3940256099942544/6300978111';
 
 /**
  * Yeniden kullanilabilir Banner Reklam bileseni

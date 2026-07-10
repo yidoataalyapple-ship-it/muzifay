@@ -8,7 +8,7 @@ import mobileAds, {
 
 // ==================== REKLAM BIRIM ID'LERI ====================
 const INTERSTITIAL_ID = 'ca-app-pub-4492429510539065/5179858800';
-const REWARDED_ID = 'ca-app-pub-4492429510539065/1899089349';
+const REWARDED_ID = 'ca-app-pub-4492429510539065/18990893';
 
 // ==================== REKLAM NESNELERI ====================
 const interstitialAd = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
