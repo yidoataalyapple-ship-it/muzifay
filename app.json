@@ -24,9 +24,7 @@
         ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
-        },
-        "GADApplicationIdentifier": "ca-app-pub-4492429510539065~4639555910",
-        "GADIsAdManagerApp": true
+        }
       }
     },
     "android": {
@@ -42,9 +40,7 @@
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.READ_MEDIA_AUDIO"
       ],
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-4492429510539065~4639555910"
-      }
+      "config": {}
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -67,7 +63,7 @@
         {
           "androidAppId": "ca-app-pub-4492429510539065~4639555910",
           "iosAppId": "ca-app-pub-4492429510539065~4639555910",
-          "userTrackingUsageDescription": "Bu uygulama size daha iyi ve kişiselleştirilmiş reklamlar sunmak için cihaz bilgilerinizi kullanır.",
+          "userTrackingUsageDescription": "Reklamlari kisisellestirmek icin cihaz bilgileri kullanilir.",
           "skAdNetworkItems": [
             "cstr6suwn9.skadnetwork",
             "4fzdc2evr5.skadnetwork",
