@@ -23,18 +23,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install EAS CRL
+      - name: Install EAS CLI
         run: npm install -g eas-cli
 
       - name: Build Android APK
         run: eas build --platform android --profile preview --non-interactive --no-wait
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_TOKEN: '{{ secrets.EXPO_TOKEN }}'
 
   build-ios:
     name: Build iOS IPA
@@ -42,18 +41,17 @@ jobs:
     timeout-minutes: 45
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@0v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Install EAS CRL
+      - name: Install EAS CLI
         run: npm install -g eas-cli
 
       - name: Build iOS IPA
