@@ -14,6 +14,7 @@ import { Colors, Gradients } from '../theme/colors';
 import { useMusic } from '../context/MusicContext';
 import GradientBackground from '../components/GradientBackground';
 import SongListItem from '../components/SongListItem';
+import AdBanner from '../components/AdBanner';
 import Animated, { FadeInUp, FadeIn } from 'react-native-reanimated';
 
 const LocalMusicScreen = () => {
@@ -23,7 +24,6 @@ const LocalMusicScreen = () => {
   const pickAndPlayAudio = useCallback(async () => {
     try {
       setLoading(true);
-      // Belge seçici kullanarak ses dosyası seç
       const result = await DocumentPicker.getDocumentAsync({
         type: ['audio/*'],
         copyToCacheDirectory: true,
@@ -69,6 +69,9 @@ const LocalMusicScreen = () => {
   return (
     <GradientBackground colors={Gradients.dark}>
       <SafeAreaView style={styles.container} edges={['top']}>
+        {/* Ust Banner Reklam */}
+        <AdBanner />
+
         {/* Header */}
         <View style={styles.header}>
           <View>
@@ -112,7 +115,7 @@ const LocalMusicScreen = () => {
           {localSongs.length === 0 && (
             <Animated.View entering={FadeIn.delay(200)} style={styles.emptyContainer}>
               <Ionicons name="musical-note" size={64} color={Colors.textMuted} />
-              <Text style={styles.emptyTitle}>Henüz sarki yok</Text>
+              <Text style={styles.emptyTitle}>Henuz sarki yok</Text>
               <Text style={styles.emptyText}>
                 Cihazindan ses dosyalari eklemek icin yukaridaki "Sarki Ekle" butonuna dokun.
               </Text>
@@ -138,6 +141,9 @@ const LocalMusicScreen = () => {
               ))}
             </Animated.View>
           )}
+
+          {/* Alt Banner Reklam */}
+          <AdBanner size="ANCHORED_ADAPTIVE_BANNER" />
 
           <View style={styles.bottomPadding} />
         </ScrollView>
@@ -233,7 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomPadding: {
-    height: 120,
+    height: 80,
   },
 });
 
