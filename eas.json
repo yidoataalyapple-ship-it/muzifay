@@ -18,7 +18,8 @@
         "credentialsSource": "local"
       },
       "ios": {
-        "simulator": true
+        "simulator": true,
+        "image": "macos-sonoma-xcode-16.4"
       },
       "env": {
         "APP_VARIANT": "preview",
@@ -28,10 +29,14 @@
     "production": {
       "autoIncrement": true,
       "env": {
-        "APP_VARIANT": "production"
+        "APP_VARIANT": "production",
+        "EAS_BUILD_SKIP_LOCKFILE_CHECK": "1"
       },
       "android": {
         "buildType": "app-bundle"
+      },
+      "ios": {
+        "image": "macos-sonoma-xcode-16.4"
       }
     }
   },
