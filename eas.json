@@ -19,7 +19,7 @@
       },
       "ios": {
         "simulator": true,
-        "image": "macos-sonoma-xcode-16.4"
+        "image": "macos-sonoma-14.6-xcode-16.1"
       },
       "env": {
         "APP_VARIANT": "preview",
@@ -36,7 +36,7 @@
         "buildType": "app-bundle"
       },
       "ios": {
-        "image": "macos-sonoma-xcode-16.4"
+        "image": "macos-sonoma-14.6-xcode-16.1"
       }
     }
   },
