@@ -11,21 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#0F0B1E"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.muzifay.app",
-      "buildNumber": "1.0.0",
-      "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ],
-        "NSAppTransportSecurity": {
-          "NSAllowsArbitraryLoads": true
-        }
-      }
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.muzifay.app",
@@ -33,16 +22,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0F0B1E"
-      },
-      "permissions": [
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.READ_MEDIA_AUDIO"
-      ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      }
     },
     "extra": {
       "eas": {
@@ -55,7 +35,6 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    },
-    "plugins": []
+    }
   }
 }
