@@ -24,8 +24,7 @@
         ],
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
-        },
-        "GADApplicationIdentifier": "ca-app-pub-4492429510539065~4639555910"
+        }
       }
     },
     "android": {
@@ -40,10 +39,7 @@
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.READ_MEDIA_AUDIO"
-      ],
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-4492429510539065~4639555910"
-      }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -60,6 +56,14 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    "plugins": []
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-4492429510539065~4639555910",
+          "iosAppId": "ca-app-pub-4492429510539065~4639555910"
+        }
+      ]
+    ]
   }
 }
