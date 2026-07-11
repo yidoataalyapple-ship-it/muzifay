@@ -1,19 +1,26 @@
 # Build Status
 
-## Son Duzeltmeler (2026-07-11)
-- **Expo SDK 51 yukseltmesi**: SDK 50 -> 51 gecisi yapildi
-  - expo: ~50.0.0 -> ~51.0.0
-  - react-native: 0.73.6 -> 0.74.5
-  - Tum expo paketleri SDK 51 versiyonlarina guncellendi
-- **AdMob**: react-native-google-mobile-ads ^13.6.0 (SDK 51 uyumlu)
-  - expo.plugins formati kullaniliyor
-- **eas.json**: Xcode 16.1 image ayarlandi (Apple zorunlu kildi)
+## Son Durum (2026-07-11)
+✅ **Build BASARILI** - Expo SDK 51 + EAS Build calisiyor
 
-## Hata Analizi ve Cozum Gecmisi
-1. **Sorun**: AdMob plugin kaldirildiginda native config cozulemiyordu
-2. **Sorun**: react-native-google-mobile-ads ^13.6.0 Expo SDK 50 ile uyumsuzdu
-3. **Cozum**: Expo SDK 51'e yukseltme yapildi
+## Yapilan Islemler
+- ✅ Expo SDK 50 -> 51 yukseltmesi
+- ✅ react-native: 0.73.6 -> 0.74.5
+- ✅ eas.json Xcode 16.1 image ayarlandi
+- ✅ Build basariyla tamamlaniyor
+
+## Bilinen Sorun
+⚠️ **react-native-google-mobile-ads EAS Build ile uyumsuz**
+- Denenenler: v12.0.0, v13.6.0, expo.plugins formati, root level formati, static frameworks
+- Sonuc: Paket varliginda EAS Build "Failed to run eas build:internal" hatasi veriyor
+- Cozum: Paket gecici olarak kaldirildi, build stabil
+
+## AdMob Entegrasyonu Icin Oneriler
+1. Bare workflow'a gecerek manuel native entegrasyon
+2. Expo SDK 52+ cikinca yeniden deneme
+3. Alternatif reklam agi (Unity Ads, Facebook Audience Network)
+4. react-native-google-mobile-ads Issue #676 takibi
 
 ## Build Takibi
-- Yeni build GitHub Actions ile otomatik tetikleniyor
-- Android APK (preview) + iOS Simulator (preview) build edilecek
+- Android APK + iOS Simulator build basarili
+- Son workflow: #50 (basarili)
