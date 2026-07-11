@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -18,6 +18,10 @@ import RecentSongsScreen from '../screens/RecentSongsScreen';
 
 // Komponentler
 import MiniPlayer from '../components/MiniPlayer';
+import AdBanner from '../components/AdBanner';
+
+// Hooks
+import useAds from '../hooks/useAds';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -96,6 +100,7 @@ const TabNavigator = () => {
         />
       </Tab.Navigator>
       <MiniPlayer />
+      <AdBanner />
     </View>
   );
 };
@@ -103,6 +108,20 @@ const TabNavigator = () => {
 const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef();
+  const { showInterstitial } = useAds();
+  const appOpenShown = useRef(false);
+
+  // Uygulama acilisinda interstitial reklam goster
+  useEffect(() => {
+    if (!appOpenShown.current) {
+      appOpenShown.current = true;
+      // Kisa bir gecikle ile acilis reklamini goster
+      const timer = setTimeout(() => {
+        showInterstitial();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showInterstitial]);
 
   // Navigation degisimlerini izle
   const handleStateChange = async () => {
@@ -113,7 +132,6 @@ const AppNavigator = () => {
       previousRouteName !== currentRouteName &&
       previousRouteName !== undefined
     ) {
-      // Sayfa gecisleri izleniyor (AdMob devre disi)
       console.log(`Navigation: ${previousRouteName} -> ${currentRouteName}`);
     }
 
