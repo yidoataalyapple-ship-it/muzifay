@@ -1,13 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
-
-// AdMob
-import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
 
 // Ekranlar
 import HomeScreen from '../screens/HomeScreen';
@@ -24,8 +21,6 @@ import MiniPlayer from '../components/MiniPlayer';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-
-const INTERSTITIAL_ID = 'ca-app-pub-4492429510539065/5179858800';
 
 const tabBarOptions = {
   tabBarStyle: {
@@ -44,11 +39,6 @@ const tabBarOptions = {
   },
   headerShown: false,
 };
-
-// Interstitial reklam nesnesi
-const interstitial = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
-  requestNonPersonalizedAdsOnly: true,
-});
 
 const TabNavigator = () => {
   return (
@@ -113,44 +103,8 @@ const TabNavigator = () => {
 const AppNavigator = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef();
-  const interstitialLoaded = useRef(false);
-  const lastAdShowTime = useRef(0);
 
-  // Interstitial reklam olay dinleyicileri
-  useEffect(() => {
-    const unsubscribeLoaded = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        interstitialLoaded.current = true;
-      }
-    );
-
-    const unsubscribeClosed = interstitial.addAdEventListener(
-      AdEventType.CLOSED,
-      () => {
-        interstitialLoaded.current = false;
-        interstitial.load();
-      }
-    );
-
-    const unsubscribeError = interstitial.addAdEventListener(
-      AdEventType.ERROR,
-      () => {
-        interstitialLoaded.current = false;
-        setTimeout(() => interstitial.load(), 30000);
-      }
-    );
-
-    interstitial.load();
-
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeClosed();
-      unsubscribeError();
-    };
-  }, []);
-
-  // Navigation degisimlerinde interstitial reklam goster
+  // Navigation degisimlerini izle
   const handleStateChange = async () => {
     const previousRouteName = routeNameRef.current;
     const currentRouteName = navigationRef.getCurrentRoute()?.name;
@@ -159,17 +113,8 @@ const AppNavigator = () => {
       previousRouteName !== currentRouteName &&
       previousRouteName !== undefined
     ) {
-      // Sayfa gecislerinde interstitial goster (60 saniye aralikla)
-      const now = Date.now();
-      if (interstitialLoaded.current && (now - lastAdShowTime.current > 60000)) {
-        // Stack ekran gecislerinde (Player, LikedSongs, RecentSongs) reklam goster
-        const stackScreens = ['Player', 'LikedSongs', 'RecentSongs'];
-        if (stackScreens.includes(currentRouteName)) {
-          interstitial.show();
-          interstitialLoaded.current = false;
-          lastAdShowTime.current = now;
-        }
-      }
+      // Sayfa gecisleri izleniyor (AdMob devre disi)
+      console.log(`Navigation: ${previousRouteName} -> ${currentRouteName}`);
     }
 
     routeNameRef.current = currentRouteName;
